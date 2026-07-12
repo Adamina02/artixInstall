@@ -100,26 +100,34 @@ echo "Setting file descriptor limits..."
 echo -e "vmuser hard nofile 1048576\nvmuser soft nofile 1048576" > /etc/security/limits.conf
 sleep 1s
 
-echo "Setting up system services..."
-dinitctl enable acpid
+echo "Setting up services..."
+ln -s /etc/dinit.d/acpid /etc/dinit.d/boot.d/acpid
 sleep 0.1s
-dinitctl enable bluetoothd
+ln -s /etc/dinit.d/bluetoothd /etc/dinit.d/boot.d/bluetoothd
 sleep 0.1s
-dinitctl enable connmand
+ln -s /etc/dinit.d/chrony /etc/dinit.d/boot.d/chrony
 sleep 0.1s
-dinitctl enable chrony
+ln -s /etc/dinit.d/connmand /etc/dinit.d/boot.d/connmand
 sleep 0.1s
-dinitctl enable dbus
+ln -s /etc/dinit.d/dbus /etc/dinit.d/boot.d/dbus
 sleep 0.1s
-dinitctl enable lact
+ln -s /etc/dinit.d/lact /etc/dinit.d/boot.d/lact
 sleep 0.1s
-dinitctl enable metalog
+ln -s /etc/dinit.d/metalog /etc/dinit.d/boot.d/metalog
 sleep 0.1s
-dinitctl enable seatd
+ln -s /etc/dinit.d/seatd /etc/dinit.d/boot.d/seatd
 sleep 0.1s
-dinitctl enable turnstiled
+ln -s /etc/dinit.d/turnstiled /etc/dinit.d/boot.d/turnstiled
 sleep 0.1s
-dinitctl enable zramen
+ln -s /etc/dinit.d/zramen /etc/dinit.d/boot.d/zramen
+sleep 0.1s
+ln -s /etc/dinit.d/user/dbus /home/vmuser/.config/dinit.d/boot.d/dbus
+sleep 0.1s
+ln -s /etc/dinit.d/user/pipewire /home/vmuser/.config/dinit.d/boot.d/pipewire
+sleep 0.1s
+ln -s /etc/dinit.d/user/pipewire-pulse /home/vmuser/.config/dinit.d/boot.d/pipewire-pulse
+sleep 0.1s
+ln -s /etc/dinit.d/user/wireplumber /home/vmuser/.config/dinit.d/boot.d/wireplumber
 sleep 1s
 
 echo "Updating pacman databases..."
@@ -144,15 +152,5 @@ sleep 0.1s
 echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile
 sleep 1s
 
-echo "Setting up user services..."
-dinitctl enable dbus
-sleep 0.1s
-dinitctl enable pipewire
-sleep 0.1s
-dinitctl enable pipewire-pulse
-sleep 0.1s
-dinitctl enable wireplumber
-sleep 1s
-
 exit
-echo -e "For security reasons, the script does not set the root or user passwords.\nPlease run the following commands to do so:\n  - passwd\n  - passwd vmuser\n  - exit\n  - umount -R /mnt\n  - reboot\nThank you for using my script!\n  -Adamina02"
+echo -e "For security reasons, the script does not set the root or user passwords.\nPlease run the following commands to do so:\n  - passwd\n  - passwd vmuser\n  - exit\n  - umount -R /mnt\n  - reboot\nThank you for using my script.\n  -Adamina02"
