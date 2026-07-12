@@ -13,8 +13,8 @@ It's also weird because I'm using:
 - A trimmed version of XFCE desktop instead of the full group package
 - No AUR, standard Arch, testing, or third-party repositories
 
-If for some reason you want to use this, go ahead:  
+If for some reason you want to use this, go ahead, run this as root inside an Artix dinit base image:  
 ```bash
 curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
-Currently, it only works in a VM, after I work out the kinks I will add an option to select either my PC or VM!
+Currently, it only works in a VM, after I work out the kinks I will add an option to select PC (for me) or VM.
