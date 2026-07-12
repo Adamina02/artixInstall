@@ -121,11 +121,7 @@ ln -s /etc/dinit.d/turnstiled /etc/dinit.d/boot.d/turnstiled
 sleep 0.1s
 ln -s /etc/dinit.d/zramen /etc/dinit.d/boot.d/zramen
 sleep 0.1s
-mkdir -p /home/vmuser/.config/dinit.d/boot.d
-sleep 0.1s
-chmod -R 777 /home/vmuser/.config
-sleep 0.1s
-chown -R vmuser:vmuser /home/vmuser/.config
+su vmuser -c "mkdir -p /home/vmuser/.config/dinit.d/boot.d"
 sleep 0.1s
 ln -s /etc/dinit.d/user/dbus /home/vmuser/.config/dinit.d/boot.d/dbus
 sleep 0.1s
@@ -144,17 +140,9 @@ echo "Installing 32-bit applications..."
 pacman -S --noconfirm lib32-mesa lib32-vulkan-mesa-layers lib32-vulkan-radeon steam --assume-installed lib32-elogind
 sleep 1s
 
-echo "Switching to user account..."
-su vmuser
-sleep 1s
-
-echo "Creating user home directories..."
-xdg-user-dirs-update
-sleep 1s
-
-echo "Setting up autostart..."
-echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc
+echo "Running some commands as user..."
+su vmuser -c "xdg-user-dirs-update"
 sleep 0.1s
-echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile
-sleep 1s
-exit
+su vmuser -c 'echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc'
+sleep 0.1s
+su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile'
