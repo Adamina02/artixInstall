@@ -17,4 +17,4 @@ If for some reason you want to use this, go ahead:
 ```bash
 curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
-But it's mostly tailed for my PC so you'll probably need to tweak it a bit.
+Currently, it only works in a VM, after I work out the kinks I will add an option to select either my PC or VM!
