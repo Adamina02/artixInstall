@@ -17,4 +17,13 @@ If for some reason you want to use this, go ahead, run this as root inside an Ar
 ```bash
 curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
-Currently, it only works in a VM, after I work out the kinks I will add an option to select PC (for me) or VM.
+For security reasons, this script does not set the root or user passwords as they would be visible in the code.  
+Please run the following after the script finishes to do so:
+```bash
+passwd
+passwd vmuser #Replace vmuser with adamina or whatever user you change it to if not a VM install.
+exit
+umount -R /mnt
+reboot
+```
+Currently, it only works in a VM, after I work out the kinks I will add an option to select PC or VM.
