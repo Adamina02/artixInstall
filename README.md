@@ -20,8 +20,9 @@ curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInst
 For security reasons, this script does not set the root or user passwords as they would be visible in the code.  
 Please run the following after the script finishes to do so:
 ```bash
+artix-chroot /mnt #The script automatically kicks you out of chroot and I don't know why!
 passwd
-passwd vmuser #Replace vmuser with adamina or whatever user you change it to if not a VM install.
+passwd vmuser #Replace vmuser with adamina or the user you changed it to if not a VM.
 exit
 umount -R /mnt
 reboot
