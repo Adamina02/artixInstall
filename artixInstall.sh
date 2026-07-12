@@ -17,9 +17,7 @@ echo -e "C.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 echo -e "LANG=C.UTF-8" > /etc/locale.conf
 efibootmgr -c -d /dev/vda -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.ppfeaturemask=0xffffffff clocksource=tsc initrd=\initramfs-linux-rt.img loglevel=4 mitigations=off root=/dev/vda2 rw sysctl.fs.file-max=10485760 sysctl.vm.max_map_count=1048576 sysctl.vm.swappiness=10 tsc=reliable'
-passwd
 useradd -G audio,disk,input,network,power,seat,storage,tty,users,video,wheel -m vmuser
-passwd vmuser
 echo -e "permit keepenv persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel" > /etc/doas.conf
 echo -e "antartix" > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
@@ -31,7 +29,7 @@ echo -e "debug = no\nbackend = dinit\ndebug_stderr = no\nlinger = no\nrundir_pat
 echo -e 'MODULES=(nct6683 ntsync)\nBINARIES=()\nFILES=()\nHOOKS=(base udev autodetect microcode modconf kms keyboard keymap block filesystems fsck)\nCOMPRESSION="zstd"\nCOMPRESSION_OPTIONS=()\nMODULES_DECOMPRESS="no"' > /etc/mkinitcpio.conf
 mkinitcpio -P
 echo -e "ZRAM_COMP_ALGORITHM=zstd\nZRAM_MAX_SIZE=8192\nZRAM_PRIORITY=32767\nZRAM_SIZE=100\nZRAMEN_QUIET=1\nZRAMEN_SWAPON_DISCARD=true" > /etc/dinit.d/config/zramen.conf
-echo -e "adam hard nofile 1048576\nadam soft nofile 1048576" > /etc/security/limits.conf
+echo -e "vmuser hard nofile 1048576\nvmuser soft nofile 1048576" > /etc/security/limits.conf
 dinitctl enable acpid
 dinitctl enable bluetoothd
 dinitctl enable connmand
@@ -53,6 +51,4 @@ dinitctl enable pipewire
 dinitctl enable pipewire-pulse
 dinitctl enable wireplumber
 exit
-exit
-umount -R /mnt
-reboot
+echo -e "For security reasons, the script does not set the root or user passwords.\nPlease run the following commands to do so:\n  - passwd\n  - passwd vmuser\n  - exit\n  - umount -R /mnt\n  - reboot\nThank you for using my script!\n  -Adamina02"
