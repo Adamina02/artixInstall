@@ -1,4 +1,6 @@
 #!/bin/bash
+stty -echo
+clear
 
 echo "Partitioning disks..."
 echo -e "label: gpt\ndevice: /dev/vda\n\n/dev/vda1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/vda2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk /dev/vda
@@ -121,6 +123,12 @@ ln -s /etc/dinit.d/turnstiled /etc/dinit.d/boot.d/turnstiled
 sleep 0.1s
 ln -s /etc/dinit.d/zramen /etc/dinit.d/boot.d/zramen
 sleep 0.1s
+mkdir -p /home/vmuser/.config/dinit.d/boot.d
+sleep 0.1s
+chmod -R 777 /home/vmuser/.config
+sleep 0.1s
+chown -R vmuser:vmuser /home/vmuser/.config
+sleep 0.1s
 ln -s /etc/dinit.d/user/dbus /home/vmuser/.config/dinit.d/boot.d/dbus
 sleep 0.1s
 ln -s /etc/dinit.d/user/pipewire /home/vmuser/.config/dinit.d/boot.d/pipewire
@@ -153,4 +161,5 @@ echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile
 sleep 1s
 
 exit
-echo -e "For security reasons, the script does not set the root or user passwords.\nPlease run the following commands to do so:\n  - passwd\n  - passwd vmuser\n  - exit\n  - umount -R /mnt\n  - reboot\nThank you for using my script.\n  -Adamina02"
+echo -e "For security reasons, the script does not set the root or user passwords.\nPlease run the following commands to do so:\n  - passwd\n  - passwd vmuser\n  - exit\n  - umount -R /mnt\n  - reboot\n\nThank you for using my script.\n  -Adamina02"
+stty echo
