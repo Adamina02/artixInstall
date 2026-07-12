@@ -1,5 +1,5 @@
 # I use Artix btw
-I also got tired of typing a very long string of commands to install Artix in VMs...
+I also got tired of typing a very long string of commands to install Artix in VMs....
 
 This is a really opinionated install of Artix Linux with dinit specifically tailored to be rather minimal.  
 
@@ -15,6 +15,6 @@ It's also weird because I'm using:
 
 If for some reason you want to use this, go ahead:  
 ```bash
-curl -sL <link here in a second hold on!> | bash
+curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
 But it's mostly tailed for my PC so you'll probably need to tweak it a bit.
