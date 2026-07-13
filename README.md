@@ -15,7 +15,7 @@ It's also weird because I'm using:
 
 If for some reason you want to use this, go ahead!
 ## Installation
-Make sure that your virtual machine or hardware is using UEFI, then run this inside a dinit Artix base image:
+Make sure that your VM or hardware is using UEFI, then run this inside a dinit Artix base image as root:
 ```bash
 curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
