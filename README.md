@@ -13,12 +13,13 @@ It's also weird because I'm using:
 - A trimmed version of XFCE desktop instead of the full group package
 - No AUR, standard Arch, testing, or third-party repositories
 
-If for some reason you want to use this, go ahead, run this as root inside an Artix dinit base image:  
+If for some reason you want to use this, go ahead!
+## Installation
+Make sure that your virtual machine or hardware is using UEFI, then run this inside a dinit Artix base image:
 ```bash
 curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
 ```
-For security reasons, this script does not set the root or user passwords as they would be visible in the code.  
-Please run the following after the script finishes to do so:
+For security reasons, this script does not set account passwords, please run the following to do so:
 ```bash
 artix-chroot /mnt #The script automatically kicks you out of chroot and I don't know why!
 passwd
@@ -27,4 +28,3 @@ exit
 umount -R /mnt
 reboot
 ```
-Currently, it only works in a VM, after I work out the kinks I will add an option to select PC or VM.
