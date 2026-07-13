@@ -3,13 +3,13 @@ clear
 user="vmuser"
 echo -e "Automated Artix Installer by Adamina02\n\nSelect install type:\n  1: Virtual machine\n  2: Real hardware"
 read -p "Option> " opt
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   user="adamina"
 fi
 sleep 1s
 
 echo "Partitioning disks..."
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   echo -e "label: gpt\ndevice: /dev/nvme0n1\n\n/dev/nvme0n1p1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/nvme0n1p2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk /dev/nvme0n1
   sleep 0.1s
   echo -e "label: gpt\ndevice: /dev/sda\n\n/dev/sda1 : start=2048, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk /dev/sda
@@ -19,7 +19,7 @@ fi
 sleep 1s
 
 echo "Creating filesystems..."
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   mkfs.vfat -F 32 /dev/nvme0n1p1
   sleep 0.1s
   mkfs.xfs /dev/nvme0n1p2
@@ -33,7 +33,7 @@ fi
 sleep 1s
 
 echo "Mounting filesystems..."
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   mount /dev/nvme0n1p2 /mnt
 else
   mount /dev/vda2 /mnt
@@ -41,7 +41,7 @@ fi
 sleep 0.1s
 mkdir -p /mnt/boot
 sleep 0.1s
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   mount /dev/nvme0n1p1 /mnt/boot
 else
   mount /dev/vda1 /mnt/boot
@@ -53,7 +53,7 @@ basestrap /mnt 7zip acpid-dinit amd-ucode android-tools base blueman bluez-dinit
 sleep 1s
 
 echo "Setting up fstab..."
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   echo -e "/dev/nvme0n1p1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/nvme0n1p2 / xfs defaults,noatime 0 1\n/dev/sda1 /mnt/hdd xfs defaults,noatime,nofail 0 2" > /mnt/etc/fstab
 else
   echo -e "/dev/vda1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/vda2 / xfs defaults,noatime 0 1" > /mnt/etc/fstab
@@ -64,7 +64,7 @@ echo "Entering chroot..."
 artix-chroot /mnt
 sleep 1s
 
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   echo "Creating additional mount points..."
   mkdir -p /mnt/hdd
   sleep 0.1s
@@ -101,7 +101,7 @@ echo -e "LANG=C.UTF-8" > /etc/locale.conf
 sleep 1s
 
 echo "Creating EFI stub entry..."
-if [[ $opt -eq 2 ]]; then
+if [ $opt -eq 2 ]; then
   efibootmgr -c -d /dev/nvme0n1 -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.ppfeaturemask=0xffffffff clocksource=tsc initrd=\initramfs-linux-rt.img loglevel=4 mitigations=off root=/dev/nvme0n1p2 rw sysctl.fs.file-max=10485760 sysctl.vm.max_map_count=1048576 sysctl.vm.swappiness=10 tsc=reliable'
 else
   efibootmgr -c -d /dev/vda -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.ppfeaturemask=0xffffffff clocksource=tsc initrd=\initramfs-linux-rt.img loglevel=4 mitigations=off root=/dev/vda2 rw sysctl.fs.file-max=10485760 sysctl.vm.max_map_count=1048576 sysctl.vm.swappiness=10 tsc=reliable'
