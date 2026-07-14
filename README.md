@@ -18,12 +18,12 @@ If for some reason you want to use this, go ahead!
 Make sure that your VM or hardware is using UEFI, then run one of these inside a dinit Artix base image as root.
 ### VMs:
 ```bash
-curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstallVM.sh | bash
+curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/vmInst.sh | bash
 ```
 ### Real hardware:
 _For real hardware, you will likely need to make changes to the file, this is made for my PC!_
 ```bash
-curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/artixInstall.sh | bash
+curl -sL https://raw.githubusercontent.com/Adamina02/artixInstall/main/inst.sh | bash
 ```
 #
 For security reasons, this script does not set account passwords, please run the following to do so:
