@@ -9,7 +9,7 @@ It's also weird because I'm using:
 - EFI stub instead of GRUB or other bootloader
 - XLibre instead of X11
 - dinit instead of systemd, kinda obvious
-- connman instead of NetworkManager
+- Connman instead of NetworkManager
 - A trimmed version of XFCE desktop instead of the full group package
 - No AUR, standard Arch, testing, or third-party repositories
 
