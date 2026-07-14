@@ -19,7 +19,7 @@ mount /dev/vda1 /mnt/boot
 sleep 1s
 
 echo "Installing base system..."
-basestrap /mnt 7zip acpid-dinit amd-ucode android-tools base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mousepad mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit
+basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mousepad mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit
 sleep 1s
 
 echo "Setting up fstab..."
@@ -140,6 +140,36 @@ echo "Installing additional applications..."
 pacman -S --noconfirm lib32-mesa lib32-vulkan-mesa-layers lib32-vulkan-radeon steam --assume-installed lib32-elogind
 sleep 0.1s
 pacman -S --noconfirm mugshot xfce4-whiskermenu-plugin --assume-installed polkit
+sleep 0.1s
+su vmuser -c 'mkdir -p /home/vmuser/.local/share/ALVR-Launcher/installations/Nightly'
+sleep 0.1s
+su vmuser -c 'curl -sL https://github.com/alvr-org/ALVR/releases/latest/download/alvr_launcher_linux.tar.gz -o /home/vmuser/.local/share/ALVR-Launcher/alvr.tar.gz'
+sleep 0.1s
+su vmuser -c 'tar -xzf /home/vmuser/.local/share/ALVR-Launcher/alvr.tar.gz -C /home/vmuser/.local/share/ALVR-Launcher'
+sleep 0.1s
+su vmuser -c 'mv "/home/vmuser/.local/share/ALVR-Launcher/alvr_launcher_linux/ALVR Launcher" /home/vmuser/.local/share/ALVR-Launcher/ALVR'
+sleep 0.1s
+su vmuser -c 'rm /home/vmuser/.local/share/ALVR-Launcher/alvr.tar.gz'
+sleep 0.1s
+su vmuser -c 'rm -r /home/vmuser/.local/share/ALVR-Launcher/alvr_launcher_linux'
+sleep 0.1s
+su vmuser -c 'curl -sL https://github.com/alvr-org/ALVR-nightly/releases/latest/download/alvr_streamer_linux.tar.gz -o /home/vmuser/.local/share/ALVR-Launcher/alvrNightly.tar.gz'
+sleep 0.1s
+su vmuser -c 'tar -xzf /home/vmuser/.local/share/ALVR-Launcher/alvrNightly.tar.gz -C /home/vmuser/.local/share/ALVR-Launcher/installations/Nightly'
+sleep 0.1s
+su vmuser -c 'rm /home/vmuser/.local/share/ALVR-Launcher/alvrNightly.tar.gz'
+sleep 0.1s
+echo -e '#!/bin/bash\nclear\necho "Checking for RTSP Proton updates..."\nrepo=$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")\nrtspVer=$(curl -sL https://github.com/SpookySkeletons/$repo/releases/latest | grep -iom 1 "proton.\+spo" | sed "s/......$//")\ninstRTSP=$(ls /home/vmuser/.local/share/Steam/compatibilitytools.d | grep -iom 1 "proton.\+")\necho -e "Latest RTSP Proton: $rtspVer\\nInstalled RTSP Proton: $instRTSP\\n\\nFetching latest ALVR..."\nalvrVer=$(curl -sL https://github.com/alvr-org/ALVR-nightly/releases/latest | grep -iom 1 "ALVR.\+alvr-o" | sed "s/.........$//")\necho -e "Latest ALVR: $alvrVer\\nInstalled ALVR can be found in dashboard.\\n\\nLaunching ALVR..."\n/home/vmuser/.local/share/ALVR-Launcher/ALVR &\necho "ALVR launched, you can close this terminal window."' > /usr/local/bin/alvr
+sleep 0.1s
+chmod +x /usr/local/bin/alvr
+sleep 0.1s
+su vmuser -c 'mkdir -p /home/vmuser/.local/share/Steam/compatibilitytools.d'
+sleep 0.1s
+su vmuser -c 'curl -sL https://github.com/SpookySkeletons/$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")/releases/download/proton-rtsp-11.0-20260609-1/proton-rtsp-11.0-20260609-1.tar.gz -o /home/vmuser/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz'
+sleep 0.1s
+su vmuser -c 'tar -xzf /home/vmuser/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz -C /home/vmuser/.local/share/Steam/compatibilitytools.d'
+sleep 0.1s
+su vmuser -c 'rm /home/vmuser/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz'
 sleep 1s
 
 echo "Running some commands as user..."
@@ -148,3 +178,23 @@ sleep 0.1s
 su vmuser -c 'echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc'
 sleep 0.1s
 su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/steam.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/gimp.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop'
