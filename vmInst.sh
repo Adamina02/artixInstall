@@ -31,7 +31,7 @@ artix-chroot /mnt
 sleep 1s
 
 echo "Settting up pacman options..."
-echo -e "[options]\nHookDir = /etc/pacman.d/hooks/\nHoldPkg = pacman glibc\nArchitecture = auto\nIgnorePkg = elogind lib32-elogind lib32-polkit polkit sudo\nColor\nCheckSpace\nVerbosePkgLists\nParallelDownloads = 16\nDownloadUser = alpm\nSigLevel = Required DatabaseOptional\nLocalSigLevel = Optional\n[system]\nInclude = /etc/pacman.d/mirrorlist\n[world]\nInclude = /etc/pacman.d/mirrorlist\n[galaxy]\nInclude = /etc/pacman.d/mirrorlist\n[lib32]\nInclude = /etc/pacman.d/mirrorlist" > /etc/pacman.conf
+echo -e "[options]\nHookDir = /etc/pacman.d/hooks/\nHoldPkg = pacman glibc\nArchitecture = auto\nIgnorePkg = elogind lib32-elogind lib32-polkit polkit sudo\nColor\nCheckSpace\nVerbosePkgLists\nParallelDownloads = 16\nDownloadUser = alpm\nSigLevel = Required DatabaseOptional\n[system]\nInclude = /etc/pacman.d/mirrorlist\n[world]\nInclude = /etc/pacman.d/mirrorlist\n[galaxy]\nInclude = /etc/pacman.d/mirrorlist\n[lib32]\nInclude = /etc/pacman.d/mirrorlist" > /etc/pacman.conf
 sleep 1s
 
 echo "Setting up pacman hooks..."
@@ -179,22 +179,24 @@ su vmuser -c 'echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-
 sleep 0.1s
 su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile'
 sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/steam.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/gimp.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/vmuser/Desktop'
-sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop'
+su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop'
 sleep 0.1s
 su vmuser -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/vmuser/Desktop'
 sleep 0.1s
-su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop'
+su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/gimp.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/steam.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop'
+sleep 0.1s
+su vmuser -c 'chmod -R +x /home/vmuser/Desktop
