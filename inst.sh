@@ -67,7 +67,7 @@ ln -s /etc/dinit.d/metalog /etc/dinit.d/boot.d/metalog && sleep 0.5s
 ln -s /etc/dinit.d/seatd /etc/dinit.d/boot.d/seatd && sleep 0.5s
 ln -s /etc/dinit.d/turnstiled /etc/dinit.d/boot.d/turnstiled && sleep 0.5s
 ln -s /etc/dinit.d/zramen /etc/dinit.d/boot.d/zramen && sleep 0.5s
-su adamina -c "mkdir -p /home/adamina/.config/dinit.d/boot.d" && sleep 0.5s
+su adamina -c 'mkdir -p /home/adamina/.config/dinit.d/boot.d' && sleep 0.5s
 ln -s /etc/dinit.d/user/dbus /home/adamina/.config/dinit.d/boot.d/dbus && sleep 0.5s
 ln -s /etc/dinit.d/user/pipewire /home/adamina/.config/dinit.d/boot.d/pipewire && sleep 0.5s
 ln -s /etc/dinit.d/user/pipewire-pulse /home/adamina/.config/dinit.d/boot.d/pipewire-pulse && sleep 0.5s
@@ -88,7 +88,7 @@ su adamina -c 'curl -sL https://github.com/alvr-org/ALVR-nightly/releases/latest
 su adamina -c 'tar -xzf /home/adamina/.local/share/ALVR-Launcher/alvrNightly.tar.gz -C /home/adamina/.local/share/ALVR-Launcher/installations/Nightly' && sleep 0.5s
 su adamina -c 'rm /home/adamina/.local/share/ALVR-Launcher/alvrNightly.tar.gz' && sleep 1s
 
-echo -e '#!/bin/bash\nclear\necho "Checking for RTSP Proton updates..."\nrepo=$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")\nrtspVer=$(curl -sL https://github.com/SpookySkeletons/$repo/releases/latest | grep -iom 1 "proton.\+spo" | sed "s/......$//")\ninstRTSP=$(ls /home/adamina/.local/share/Steam/compatibilitytools.d | grep -iom 1 "proton.\+")\necho -e "Latest RTSP Proton: $rtspVer\\nInstalled RTSP Proton: $instRTSP\\n\\nLaunching ALVR..."\n/home/adamina/.local/share/ALVR-Launcher/ALVR &\necho "ALVR launched, you can close this terminal window."' > /usr/local/bin/alvr && sleep 0.5s
+echo -e '#!/bin/bash\necho "Checking for RTSP Proton updates..."\nrepo=$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")\nrtspVer=$(curl -sL https://github.com/SpookySkeletons/$repo/releases/latest | grep -iom 1 "proton.\+spo" | sed "s/......$//")\ninstRTSP=$(ls /home/adamina/.local/share/Steam/compatibilitytools.d | grep -iom 1 "proton.\+")\necho -e "Latest RTSP Proton: $rtspVer\\nInstalled RTSP Proton: $instRTSP\\n\\nLaunching ALVR..."\n/home/adamina/.local/share/ALVR-Launcher/ALVR' > /usr/local/bin/alvr && sleep 0.5s
 chmod +x /usr/local/bin/alvr && sleep 1s
 
 su adamina -c 'mkdir -p /home/adamina/.local/share/Steam/compatibilitytools.d' && sleep 0.5s
@@ -96,11 +96,14 @@ su adamina -c 'curl -sL https://github.com/SpookySkeletons/$(curl -sL https://gi
 su adamina -c 'tar -xzf /home/adamina/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz -C /home/adamina/.local/share/Steam/compatibilitytools.d' && sleep 0.5s
 su adamina -c 'rm /home/adamina/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz' && sleep 1s
 
-su adamina -c "xdg-user-dirs-update" && sleep 1s
+su adamina -c 'xdg-user-dirs-update' && sleep 0.5s
+su adamina -c 'mkdir -p /home/adamina/.icons' && sleep 0.5s
+su adamina -c 'mkdir -p /home/adamina/.themes' && sleep 1s
 
 su adamina -c 'echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/adamina/.xinitrc' && sleep 0.5s
 su adamina -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/adamina/.bash_profile' && sleep 1s
 
+su adamina -c 'echo -e "Bizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/adamina/Desktop/steamREADME.txt' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/mpv.desktop /home/adamina/Desktop' && sleep 0.5s
