@@ -112,4 +112,4 @@ su adamina -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.deskto
 su adamina -c 'cp /usr/share/applications/steam.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/adamina/Desktop' && sleep 1s
 
-su adamina -c 'chmod -R +x /home/adamina/Desktop && sleep 1s
+su adamina -c 'chmod -R +x /home/adamina/Desktop' && sleep 1s
