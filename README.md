@@ -4,7 +4,7 @@ I also got tired of typing a very long string of commands to install Artix in VM
 This is a really opinionated install of Artix Linux with dinit specifically tailored to be rather minimal.
 
 It's also weird because I'm using:
-- acpid+seatd+turnstiled instead of elogind
+- acpid+seatd+turnstiled instead of elogind, also no polkit either
 - doas instead of sudo
 - EFI stub instead of GRUB or other bootloader
 - XLibre instead of X11
