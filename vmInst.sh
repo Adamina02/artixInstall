@@ -104,4 +104,4 @@ su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop
 su vmuser -c 'cp /usr/share/applications/steam.desktop /home/vmuser/Desktop' && sleep 0.5s
 su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop' && sleep 1s
 
-su vmuser -c 'chmod -R +x /home/vmuser/Desktop && sleep 1s
+su vmuser -c 'chmod -R +x /home/vmuser/Desktop' && sleep 1s
