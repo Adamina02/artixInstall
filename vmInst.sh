@@ -8,7 +8,7 @@ mount /dev/vda2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
 mount /dev/vda1 /mnt/boot && sleep 1s
 
-basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mousepad mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
+basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mousepad mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-artwork xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
 
 echo -e "/dev/vda1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/vda2 / xfs defaults,noatime 0 1" > /mnt/etc/fstab && sleep 1s
 
@@ -29,7 +29,7 @@ efibootmgr -c -d /dev/vda -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.
 
 useradd -G audio,disk,input,network,power,seat,storage,tty,users,video,wheel -m vmuser && sleep 1s
 
-echo -e "permit keepenv persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel" > /etc/doas.conf && sleep 1s
+echo -e "permit keepenv persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel\npermit nopass :wheel as root cmd /usr/bin/shutdown" > /etc/doas.conf && sleep 1s
 
 echo -e "antartix" > /etc/hostname && sleep 0.5s
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts && sleep 0.5s
@@ -67,7 +67,7 @@ ln -s /etc/dinit.d/user/wireplumber /home/vmuser/.config/dinit.d/boot.d/wireplum
 
 pacman -Syu && sleep 0.5s
 pacman -S --noconfirm lib32-mesa lib32-vulkan-mesa-layers lib32-vulkan-radeon steam --assume-installed lib32-elogind && sleep 0.5s
-pacman -S --noconfirm mugshot xfce4-whiskermenu-plugin --assume-installed polkit && sleep 1s
+pacman -S --noconfirm mugshot xfce4-weather-plugin xfce4-whiskermenu-plugin --assume-installed polkit && sleep 1s
 
 su vmuser -c 'mkdir -p /home/vmuser/.local/share/ALVR-Launcher/installations/Nightly' && sleep 0.5s
 su vmuser -c 'curl -sL https://github.com/alvr-org/ALVR/releases/latest/download/alvr_launcher_linux.tar.gz -o /home/vmuser/.local/share/ALVR-Launcher/alvr.tar.gz' && sleep 0.5s
@@ -90,21 +90,22 @@ su vmuser -c 'rm /home/vmuser/.local/share/Steam/compatibilitytools.d/rtsp.tar.g
 
 su vmuser -c 'xdg-user-dirs-update' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/.icons' && sleep 0.5s
-su vmuser -c 'mkdir -p /home/vmuser/.themes' && sleep 1s
+su vmuser -c 'mkdir -p /home/vmuser/.themes' && sleep 0.5s
+su vmuser -c 'mkdir -p /home/vmuser/Pictures/Wallpapers' && sleep 1s
 
-su vmuser -c 'echo -e "xfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
+su vmuser -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
 su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile' && sleep 1s
 
-su vmuser -c 'echo -e "Bizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/vmuser/Desktop/steamREADME.txt' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/gimp.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop' && sleep 0.5s
 su vmuser -c 'cp /usr/share/applications/steam.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop' && sleep 1s
+su vmuser -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/gimp.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop' && sleep 0.5s
+su vmuser -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/vmuser/Desktop/README.txt' && sleep 1s
 
 su vmuser -c 'chmod -R +x /home/vmuser/Desktop' && sleep 1s
