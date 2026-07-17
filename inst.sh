@@ -101,7 +101,7 @@ su adamina -c 'mkdir -p /home/adamina/.icons' && sleep 0.5s
 su adamina -c 'mkdir -p /home/adamina/.themes' && sleep 0.5s
 su adamina -c 'mkdir -p /home/adamina/Pictures/Wallpapers' && sleep 1s
 
-su adamina -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/adamina/.xinitrc' && sleep 0.5s
+su adamina -c 'echo -e "xrandr --output DisplayPort-1 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\nxrandr --output DisplayPort-2 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\n/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/adamina/.xinitrc' && sleep 0.5s
 su adamina -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/adamina/.bash_profile' && sleep 1s
 
 su adamina -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/adamina/Desktop' && sleep 0.5s
