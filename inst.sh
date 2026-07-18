@@ -88,8 +88,11 @@ su adamina -c 'curl -sL https://github.com/alvr-org/ALVR-nightly/releases/latest
 su adamina -c 'tar -xzf /home/adamina/.local/share/ALVR-Launcher/alvrNightly.tar.gz -C /home/adamina/.local/share/ALVR-Launcher/installations/Nightly' && sleep 0.5s
 su adamina -c 'rm /home/adamina/.local/share/ALVR-Launcher/alvrNightly.tar.gz' && sleep 1s
 
-echo -e '#!/bin/bash\necho "Checking for RTSP Proton updates..."\nrepo=$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")\nrtspVer=$(curl -sL https://github.com/SpookySkeletons/$repo/releases/latest | grep -iom 1 "proton.\+spo" | sed "s/......$//")\ninstRTSP=$(ls /home/adamina/.local/share/Steam/compatibilitytools.d | grep -iom 1 "proton.\+")\necho -e "Latest RTSP Proton: $rtspVer\\nInstalled RTSP Proton: $instRTSP\\n\\nLaunching ALVR..."\n/home/adamina/.local/share/ALVR-Launcher/ALVR' > /usr/local/bin/alvr && sleep 0.5s
+echo -e '#!/bin/bash\nrepo=$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")\nrtspVer=$(curl -sL https://github.com/SpookySkeletons/$repo/releases/latest | grep -iom 1 "proton.\+spo" | sed "s/......$//")\ninstRTSP=$(ls /home/adamina/.local/share/Steam/compatibilitytools.d | grep -iom 1 "proton.\+")\nnotify-send -u critical -i steam "RTSP Proton Updater" "Latest: ${rtspVer,,}\\nInstalled: $instRTSP"\n/home/adamina/.local/share/ALVR-Launcher/ALVR' > /usr/local/bin/alvr && sleep 0.5s
 chmod +x /usr/local/bin/alvr && sleep 1s
+
+mkdir -p /usr/local/share/applications && sleep 0.5s
+echo -e "[Desktop Entry]\nType=Application\nName=ALVR\nComment=Stream VR games from your PC to your headset via Wi-Fi\nExec=/usr/local/bin/alvr\nIcon=applications-engineering\nCategories=Game" > /usr/local/share/applications/alvr.desktop && sleep 1s
 
 su adamina -c 'mkdir -p /home/adamina/.local/share/Steam/compatibilitytools.d' && sleep 0.5s
 su adamina -c 'curl -sL https://github.com/SpookySkeletons/$(curl -sL https://github.com/SpookySkeletons?tab=repositories | grep -iom 1 "proton.\+rtsp")/releases/download/proton-rtsp-11.0-20260609-1/proton-rtsp-11.0-20260609-1.tar.gz -o /home/adamina/.local/share/Steam/compatibilitytools.d/rtsp.tar.gz' && sleep 0.5s
@@ -106,13 +109,14 @@ su adamina -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/adami
 
 su adamina -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/steam.desktop /home/adamina/Desktop' && sleep 0.5s
+su adamina -c 'cp /usr/local/share/applications/alvr.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/org.prismlauncher.PrismLauncher.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/gimp.desktop /home/adamina/Desktop' && sleep 0.5s
-su adamina -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/xfce4-terminal.desktop /home/adamina/Desktop' && sleep 0.5s
-su adamina -c 'cp /usr/share/applications/org.xfce.mousepad.desktop /home/adamina/Desktop' && sleep 0.5s
+su adamina -c 'cp /usr/share/applications/geany.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/mpv.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/adamina/Desktop' && sleep 0.5s
+su adamina -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/adamina/Desktop/README.txt' && sleep 1s
 
