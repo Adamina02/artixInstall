@@ -10,7 +10,7 @@ mount /dev/nvme0n1p2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
 mount /dev/nvme0n1p1 /mnt/boot && sleep 1s
 
-basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mousepad mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-artwork xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
+basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr fastfetch ffmpeg ffmpegthumbnailer geany gimp gnu-free-fonts gsfonts iwd lact-dinit linux-firmware-amdgpu linux-firmware-intel linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
 
 echo -e "/dev/nvme0n1p1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/nvme0n1p2 / xfs defaults,noatime 0 1\n/dev/sda1 /mnt/hdd xfs defaults,noatime,nofail 0 2" > /mnt/etc/fstab && sleep 1s
 
@@ -33,7 +33,7 @@ echo -e "C.UTF-8 UTF-8" > /etc/locale.gen && sleep 0.5s
 locale-gen && sleep 0.5s
 echo -e "LANG=C.UTF-8" > /etc/locale.conf && sleep 1s
 
-efibootmgr -c -d /dev/nvme0n1 -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.ppfeaturemask=0xffffffff clocksource=tsc initrd=\initramfs-linux-rt.img loglevel=4 mitigations=off root=/dev/nvme0n1p2 rw sysctl.fs.file-max=10485760 sysctl.vm.max_map_count=1048576 sysctl.vm.swappiness=10 tsc=reliable' && sleep 1s
+efibootmgr -c -d /dev/nvme0n1 -l /vmlinuz-linux-rt -L "Artix Linux" -p 1 -u 'amdgpu.ppfeaturemask=0xffffffff clocksource=tsc initrd=\initramfs-linux-rt.img loglevel=4 mitigations=off nmi_watchdog=0 nosoftlockup root=/dev/nvme0n1p2 rw sysctl.fs.file-max=10485760 sysctl.vm.max_map_count=1048576 sysctl.vm.swappiness=10 tsc=reliable' && sleep 1s
 
 useradd -G audio,disk,input,network,power,seat,storage,tty,users,video,wheel -m adamina && sleep 1s
 
@@ -116,4 +116,4 @@ su adamina -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop
 su adamina -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/adamina/Desktop/README.txt' && sleep 1s
 
-su adamina -c 'chmod -R +x /home/adamina/Desktop' && sleep 1s
+su adamina -c 'chmod +x /home/adamina/Desktop/*' && sleep 1s
