@@ -94,6 +94,7 @@ su vmuser -c 'rm /home/vmuser/.local/share/Steam/compatibilitytools.d/rtsp.tar.g
 su vmuser -c 'xdg-user-dirs-update' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/.icons' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/.themes' && sleep 0.5s
+su vmuser -c 'mkdir -p /home/vmuser/Pictures/Screenshots' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/Pictures/Wallpapers' && sleep 1s
 
 su vmuser -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
