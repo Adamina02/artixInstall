@@ -97,7 +97,7 @@ su vmuser -c 'mkdir -p /home/vmuser/.themes' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/Pictures/Screenshots' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/Pictures/Wallpapers' && sleep 1s
 
-su vmuser -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
+su vmuser -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nsteam -silent steam://unlockh264/ &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
 su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile' && sleep 1s
 
 su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop' && sleep 0.5s
@@ -111,6 +111,6 @@ su vmuser -c 'cp /usr/share/applications/mpv.desktop /home/vmuser/Desktop' && sl
 su vmuser -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/vmuser/Desktop' && sleep 0.5s
 su vmuser -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/vmuser/Desktop' && sleep 0.5s
 su vmuser -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/vmuser/Desktop' && sleep 0.5s
-su vmuser -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/vmuser/Desktop/README.txt' && sleep 1s
+su vmuser -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then restart the computer or exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/vmuser/Desktop/README.txt' && sleep 1s
 
 su vmuser -c 'chmod +x /home/vmuser/Desktop/*' && sleep 1s
