@@ -1,6 +1,6 @@
 #!/bin/bash
-echo -e "label: gpt\ndevice: /dev/nvme0n1\n\n/dev/nvme0n1p1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/nvme0n1p2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk /dev/nvme0n1 && sleep 0.5s
-echo -e "label: gpt\ndevice: /dev/sda\n\n/dev/sda1 : start=2048, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk /dev/sda && sleep 1s
+echo -e "label: gpt\ndevice: /dev/nvme0n1\n\n/dev/nvme0n1p1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/nvme0n1p2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -fw always /dev/nvme0n1 && sleep 0.5s
+echo -e "label: gpt\ndevice: /dev/sda\n\n/dev/sda1 : start=2048, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -fw always /dev/sda && sleep 1s
 
 mkfs.vfat -F 32 /dev/nvme0n1p1 && sleep 0.5s
 mkfs.xfs /dev/nvme0n1p2 && sleep 0.5s
@@ -24,6 +24,7 @@ mkdir -p /mnt/usb3 && sleep 1s
 
 echo -e "[options]\nHookDir = /etc/pacman.d/hooks/\nHoldPkg = pacman glibc\nArchitecture = auto\nIgnorePkg = elogind lib32-elogind lib32-polkit polkit sudo\nColor\nCheckSpace\nVerbosePkgLists\nParallelDownloads = 16\nDownloadUser = alpm\nSigLevel = Required DatabaseOptional\n[system]\nInclude = /etc/pacman.d/mirrorlist\n[world]\nInclude = /etc/pacman.d/mirrorlist\n[galaxy]\nInclude = /etc/pacman.d/mirrorlist\n[lib32]\nInclude = /etc/pacman.d/mirrorlist" > /etc/pacman.conf && sleep 1s
 
+mkdir -p /etc/pacman.d/hooks
 echo -e "[Trigger]\nOperation = Upgrade\nType = Package\nTarget = *\n\n[Action]\nDescription = Cleaning package cache...\nWhen = PostTransaction\nExec = /usr/bin/pacman -Sc" > /etc/pacman.d/hooks/cache.hook && sleep 0.5s
 echo -e "[Trigger]\nOperation = Upgrade\nType = Package\nTarget = *\n\n[Action]\nDescription = Running fstrim on all mounted filesystems...\nWhen = PostTransaction\nExec = /usr/bin/fstrim -a" > /etc/pacman.d/hooks/disks.hook && sleep 0.5s
 echo -e "[Trigger]\nOperation = Upgrade\nType = Package\nTarget = *\n\n[Action]\nDescription = Checking for orphaned packages...\nWhen = PostTransaction\nExec = /usr/bin/pacman -Qdtt" > /etc/pacman.d/hooks/orphans.hook && sleep 1s
@@ -119,6 +120,6 @@ su adamina -c 'cp /usr/share/applications/mpv.desktop /home/adamina/Desktop' && 
 su adamina -c 'cp /usr/share/applications/io.github.ilya_zlobintsev.LACT.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/org.shotcut.Shotcut.desktop /home/adamina/Desktop' && sleep 0.5s
 su adamina -c 'cp /usr/share/applications/xfce4-taskmanager.desktop /home/adamina/Desktop' && sleep 0.5s
-su adamina -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then restart the computer or exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update." > /home/adamina/Desktop/README.txt' && sleep 1s
+su adamina -c 'echo -e "Whisker menu:\nThe whisker menu provides the ability to remap buttons unlike the stock menu.\nThis is particularly useful for GTK settings and shutting down and rebooting.\nAfter adding the whisker menu to the panel, set the following commands in the properties menu:\n  - Settings Manager: nwg-look\n  - Restart: doas /usr/bin/shutdown -r\n  - Shut Down: doas /usr/bin/shutdown\n  - Edit Profile: mugshot\n\nSteam:\nBizarrely, Steam does not automatically unlock the H264 decoder by default.\nThis decoder is required for RTSP Proton and other Steam functions to work correctly.\nTo enable it, sign into Steam normally first, then restart the computer or exit Steam and run:\n  - steam steam://unlockh264/\nAfter running it, wait for Steam to open normally and wait about 1-2 minutes, then exit Steam and start it normally.\nIf codec issues arise again later, try running this again after a Steam or RTSP Proton update.\n\nSteam Autostart:\nSteam is configured to automatically start with the system in the background.\nJust start Steam once normally to configure the runtime and it will start automatically on every boot after." > /home/adamina/Desktop/README.txt' && sleep 1s
 
 su adamina -c 'chmod +x /home/adamina/Desktop/*' && sleep 1s
