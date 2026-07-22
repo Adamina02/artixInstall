@@ -9,7 +9,7 @@ mount /dev/vda2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
 mount /dev/vda1 /mnt/boot && sleep 1s
 
-basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr exfatprogs fastfetch ffmpeg ffmpegthumbnailer geany gimp gnu-free-fonts gsfonts lact-dinit linux-firmware-amdgpu linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
+basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr exfatprogs fastfetch ffmpeg ffmpegthumbnailer geany gimp gnu-free-fonts gsfonts lact-dinit linux-firmware-amdgpu linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit xorg-xset yt-dlp zramen-dinit && sleep 1s
 
 echo -e "/dev/vda1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/vda2 / xfs defaults,noatime 0 1" > /mnt/etc/fstab && sleep 1s
 
@@ -37,7 +37,7 @@ echo -e "antartix" > /etc/hostname && sleep 0.5s
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts && sleep 0.5s
 echo -e "[General]\nAllowHostnameUpdates=false\nPreferredTechnologies=ethernet,wifi" > /etc/connman/main.conf && sleep 1s
 
-echo -e "EDITOR=nano\nLD_BIND_NOW=1\nQT_QPA_PLATFORMTHEME=gtk2" > /etc/environment && sleep 1s
+echo -e "EDITOR=nano\nLD_BIND_NOW=1\nQT_QPA_PLATFORMTHEME=gtk2\nXCURSOR_SIZE=24" > /etc/environment && sleep 1s
 
 echo -e 'ACTIVE_CONSOLES="/dev/tty1"' > /etc/dinit.d/config/console.conf && sleep 0.5s
 echo -e 'GETTY_ARGS="-a vmuser -J"\nGETTY_BAUD=38400\nGETTY_TERM=linux' > /etc/dinit.d/config/agetty-tty1.conf && sleep 1s
@@ -99,7 +99,7 @@ su vmuser -c 'mkdir -p /home/vmuser/.themes' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/Pictures/Screenshots' && sleep 0.5s
 su vmuser -c 'mkdir -p /home/vmuser/Pictures/Wallpapers' && sleep 1s
 
-su vmuser -c 'echo -e "/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nsteam -silent steam://unlockh264/ &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
+su vmuser -c 'echo -e "xset -dpms &\n/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nsteam -silent steam://unlockh264/ &\nthunar --daemon &\nexec xfwm4" > /home/vmuser/.xinitrc' && sleep 0.5s
 su vmuser -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/vmuser/.bash_profile' && sleep 1s
 
 su vmuser -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/vmuser/Desktop' && sleep 0.5s
