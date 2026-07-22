@@ -1,11 +1,11 @@
 #!/bin/bash
 clear
-echo -e "label: gpt\ndevice: /dev/nvme0n1\n\n/dev/nvme0n1p1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/nvme0n1p2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -fw always /dev/nvme0n1 && sleep 0.5s
-echo -e "label: gpt\ndevice: /dev/sda\n\n/dev/sda1 : start=2048, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -fw always /dev/sda && sleep 1s
+echo -e "label: gpt\ndevice: /dev/nvme0n1\n\n/dev/nvme0n1p1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/nvme0n1p2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -f /dev/nvme0n1 && sleep 0.5s
+echo -e "label: gpt\ndevice: /dev/sda\n\n/dev/sda1 : start=2048, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -f /dev/sda && sleep 1s
 
-mkfs.vfat -F 32 /dev/nvme0n1p1 && sleep 0.5s
-mkfs.xfs /dev/nvme0n1p2 && sleep 0.5s
-mkfs.xfs /dev/sda1 && sleep 1s
+mkfs.vfat -I -F 32 /dev/nvme0n1p1 && sleep 0.5s
+mkfs.xfs -f /dev/nvme0n1p2 && sleep 0.5s
+mkfs.xfs -f /dev/sda1 && sleep 1s
 
 mount /dev/nvme0n1p2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
