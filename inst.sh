@@ -11,7 +11,7 @@ mount /dev/nvme0n1p2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
 mount /dev/nvme0n1p1 /mnt/boot && sleep 1s
 
-basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr exfatprogs fastfetch ffmpeg ffmpegthumbnailer geany gimp gnu-free-fonts gsfonts lact-dinit linux-firmware-amdgpu linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit yt-dlp zramen-dinit && sleep 1s
+basestrap /mnt 7zip acpid-dinit amd-ucode base blueman bluez-dinit chrony-dinit connman-dinit connman-gtk dbus-dinit dbus-dinit-user dinit dosfstools efibootmgr exfatprogs fastfetch ffmpeg ffmpegthumbnailer geany gimp gnu-free-fonts gsfonts lact-dinit linux-firmware-amdgpu linux-firmware-other linux-firmware-realtek linux-firmware-xz linux-rt mesa metalog-dinit mpv nano nwg-look opendoas pavucontrol-qt pipewire-audio pipewire-dinit pipewire-jack pipewire-pulse-dinit prismlauncher python-adblock qt6gtk2 qt6-multimedia-ffmpeg qutebrowser ristretto seatd-dinit shotcut thunar thunar-archive-plugin tumbler turnstile-dinit vulkan-mesa-layers vulkan-radeon wireplumber-dinit xarchiver xdg-desktop-portal-gtk xdg-user-dirs xdg-utils xfce4-eyes-plugin xfce4-notifyd xfce4-panel xfce4-pulseaudio-plugin xfce4-screensaver xfce4-screenshooter xfce4-sensors-plugin xfce4-taskmanager xfce4-terminal xfdesktop xfsprogs xfwm4 xlibre-input-libinput xlibre-video-amdgpu xlibre-xserver xorg-xinit xorg-xset yt-dlp zramen-dinit && sleep 1s
 
 echo -e "/dev/nvme0n1p1 /boot vfat umask=0077,tz=UTC 0 2\n/dev/nvme0n1p2 / xfs defaults,noatime 0 1\n/dev/sda1 /mnt/hdd xfs defaults,noatime,nofail 0 2" > /mnt/etc/fstab && sleep 1s
 
@@ -20,7 +20,8 @@ artix-chroot /mnt && sleep 1s
 mkdir -p /mnt/hdd && sleep 0.5s
 mkdir -p /mnt/usb1 && sleep 0.5s
 mkdir -p /mnt/usb2 && sleep 0.5s
-mkdir -p /mnt/usb3 && sleep 1s
+mkdir -p /mnt/usb3 && sleep 0.5s
+chmod 777 /mnt/* && sleep 1s
 
 echo -e "[options]\nHookDir = /etc/pacman.d/hooks/\nHoldPkg = pacman glibc\nArchitecture = auto\nIgnorePkg = elogind lib32-elogind lib32-polkit polkit sudo\nColor\nCheckSpace\nVerbosePkgLists\nParallelDownloads = 16\nDownloadUser = alpm\nSigLevel = Required DatabaseOptional\n[system]\nInclude = /etc/pacman.d/mirrorlist\n[world]\nInclude = /etc/pacman.d/mirrorlist\n[galaxy]\nInclude = /etc/pacman.d/mirrorlist\n[lib32]\nInclude = /etc/pacman.d/mirrorlist" > /etc/pacman.conf && sleep 1s
 
@@ -44,7 +45,7 @@ echo -e "antartix" > /etc/hostname && sleep 0.5s
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts && sleep 0.5s
 echo -e "[General]\nAllowHostnameUpdates=false\nPreferredTechnologies=ethernet,wifi" > /etc/connman/main.conf && sleep 1s
 
-echo -e "EDITOR=nano\nLD_BIND_NOW=1\nQT_QPA_PLATFORMTHEME=gtk2" > /etc/environment && sleep 1s
+echo -e "EDITOR=nano\nLD_BIND_NOW=1\nQT_QPA_PLATFORMTHEME=gtk2\nXCURSOR_SIZE=24" > /etc/environment && sleep 1s
 
 echo -e 'ACTIVE_CONSOLES="/dev/tty1"' > /etc/dinit.d/config/console.conf && sleep 0.5s
 echo -e 'GETTY_ARGS="-a adamina -J"\nGETTY_BAUD=38400\nGETTY_TERM=linux' > /etc/dinit.d/config/agetty-tty1.conf && sleep 1s
@@ -106,7 +107,7 @@ su adamina -c 'mkdir -p /home/adamina/.themes' && sleep 0.5s
 su adamina -c 'mkdir -p /home/adamina/Pictures/Screenshots' && sleep 0.5s
 su adamina -c 'mkdir -p /home/adamina/Pictures/Wallpapers' && sleep 1s
 
-su adamina -c 'echo -e "xrandr --output DisplayPort-1 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\nxrandr --output DisplayPort-2 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\n/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nsteam -silent steam://unlockh264/ &\nthunar --daemon &\nexec xfwm4" > /home/adamina/.xinitrc' && sleep 0.5s
+su adamina -c 'echo -e "xrandr --output DisplayPort-1 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\nxrandr --output DisplayPort-2 --mode 2560x1440 --rate 120.00 --set TearFree on --set \"max bpc\" 10 --set \"Broadcast RGB\" Full &\nxset -dpms &\n/usr/lib/xfce4/notifyd/xfce4-notifyd &\nxfce4-panel &\nxfce4-screensaver &\nxfdesktop &\nblueman-applet &\nconnman-gtk --tray &\nsteam -silent steam://unlockh264/ &\nthunar --daemon &\nexec xfwm4" > /home/adamina/.xinitrc' && sleep 0.5s
 su adamina -c 'echo -e "[[ -f ~/.bashrc ]] && . ~/.bashrc\nstartx" > /home/adamina/.bash_profile' && sleep 1s
 
 su adamina -c 'cp /usr/share/applications/org.qutebrowser.qutebrowser.desktop /home/adamina/Desktop' && sleep 0.5s
