@@ -1,9 +1,9 @@
 #!/bin/bash
 clear
-echo -e "label: gpt\ndevice: /dev/vda\n\n/dev/vda1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/vda2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -fw always /dev/vda && sleep 1s
+echo -e "label: gpt\ndevice: /dev/vda\n\n/dev/vda1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B\n/dev/vda2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" | sfdisk -f /dev/vda && sleep 1s
 
-mkfs.vfat -F 32 /dev/vda1 && sleep 0.5s
-mkfs.xfs /dev/vda2 && sleep 1s
+mkfs.vfat -I -F 32 /dev/vda1 && sleep 0.5s
+mkfs.xfs -f /dev/vda2 && sleep 1s
 
 mount /dev/vda2 /mnt && sleep 0.5s
 mkdir -p /mnt/boot && sleep 0.5s
