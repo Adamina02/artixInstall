@@ -35,7 +35,7 @@ echo -e "permit keepenv persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr
 
 echo -e "antartix" > /etc/hostname && sleep 0.5s
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts && sleep 0.5s
-echo -e "[General]\nAllowHostnameUpdates=false\nPreferredTechnologies=ethernet,wifi" > /etc/connman/main.conf && sleep 1s
+echo -e "[General]\nAllowHostnameUpdates=false\nPreferredTechnologies=ethernet" > /etc/connman/main.conf && sleep 1s
 
 echo -e "EDITOR=nano\nLD_BIND_NOW=1\nQT_QPA_PLATFORMTHEME=gtk2\nXCURSOR_SIZE=24" > /etc/environment && sleep 1s
 
